@@ -1,0 +1,156 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net9.0;net9.0-windows;net9.0-android;net9.0-ios;net9.0-tvos</TargetFrameworks>
+    <RootNamespace></RootNamespace>
+    <EnableDefaultItems>false</EnableDefaultItems>
+    <VersionPrefix>1.0.0</VersionPrefix>
+    <VersionSuffix></VersionSuffix>
+	</PropertyGroup>
+
+  <PropertyGroup>
+    <PackageProjectUrl>https://github.com/AstralPlaneGames/StarWorks</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/AstralPlaneGames/SDL_shadercross.NET.NativeAssets</RepositoryUrl>
+    <Authors>ryancheung</Authors>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Description>.NET 9 wrapper of SDL_shadercross native libs for StarWorks.</Description>
+    <PackageTags>sdl;net9</PackageTags>
+    <PackageId>SDL_shadercross.NET.NativeAssets</PackageId>
+    <Copyright>Copyright 2026 ryancheung</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\"/>
+  </ItemGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net9.0-android'">
+    <SupportedOSPlatformVersion>21</SupportedOSPlatformVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net9.0-ios' or '$(TargetFramework)' == 'net9.0-tvos'">
+    <IsBindingProject>true</IsBindingProject>
+    <NoBindingEmbedding>false</NoBindingEmbedding>
+    <SupportedOSPlatformVersion>12.2</SupportedOSPlatformVersion>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net9.0-ios' or '$(TargetFramework)' == 'net9.0-tvos'">
+    <ObjcBindingApiDefinition Include="ApiDefinition.cs" />
+    <ObjcBindingCoreSource Include="StructsAndEnums.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="runtimes\linux-x64\libdxcompiler.so" Pack="true" PackagePath="runtimes\linux-x64\native\"/>
+    <None Include="runtimes\linux-x64\libdxil.so" Pack="true" PackagePath="runtimes\linux-x64\native\"/>
+    <None Include="runtimes\linux-x64\libSDL3_shadercross.so.0" Pack="true" PackagePath="runtimes\linux-x64\native\"/>
+    <None Include="runtimes\linux-x64\libspirv-cross-c-shared.so.0" Pack="true" PackagePath="runtimes\linux-x64\native\"/>
+    <None Include="runtimes\linux-x64\libvkd3d-shader.so.1" Pack="true" PackagePath="runtimes\linux-x64\native\"/>
+    <None Include="runtimes\linux-x64\libvkd3d-utils.so.1" Pack="true" PackagePath="runtimes\linux-x64\native\"/>
+    <None Include="runtimes\linux-x64\libvkd3d.so.1" Pack="true" PackagePath="runtimes\linux-x64\native\"/>
+
+    <None Include="runtimes\osx\libdxcompiler.dylib" Pack="true" PackagePath="runtimes\osx\native\"/>
+    <None Include="runtimes\osx\libdxil.dylib" Pack="true" PackagePath="runtimes\osx\native\"/>
+    <None Include="runtimes\osx\libSDL3_shadercross.0.dylib" Pack="true" PackagePath="runtimes\osx\native\"/>
+    <None Include="runtimes\osx\libspirv-cross-c-shared.0.dylib" Pack="true" PackagePath="runtimes\osx\native\"/>
+    <None Include="runtimes\osx\libvkd3d-shader.1.dylib" Pack="true" PackagePath="runtimes\osx\native\"/>
+    <None Include="runtimes\osx\libvkd3d-utils.1.dylib" Pack="true" PackagePath="runtimes\osx\native\"/>
+    <None Include="runtimes\osx\libvkd3d.1.dylib" Pack="true" PackagePath="runtimes\osx\native\"/>
+
+    <None Include="runtimes\win-x64\dxcompiler.dll" Pack="true" PackagePath="runtimes\win-x64\native\"/>
+    <None Include="runtimes\win-x64\dxil.dll" Pack="true" PackagePath="runtimes\win-x64\native\"/>
+    <None Include="runtimes\win-x64\SDL3_shadercross.dll" Pack="true" PackagePath="runtimes\win-x64\native\"/>
+    <None Include="runtimes\win-x64\spirv-cross-c-shared.dll" Pack="true" PackagePath="runtimes\win-x64\native\"/>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net9.0-android'">
+    <EmbeddedNativeLibrary Include="runtimes\android\arm64-v8a\libSDL3_shadercross.so" Link="libs\arm64-v8a\libSDL3_shadercross.so" />
+    <EmbeddedNativeLibrary Include="runtimes\android\arm64-v8a\libspirv-cross-c-shared.so" Link="libs\arm64-v8a\libspirv-cross-c-shared.so" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net9.0-ios'">
+    <NativeReference Include="runtimes\ios\libSDL3_shadercross.a">
+      <Kind>Static</Kind>
+      <SmartLink>False</SmartLink>
+      <ForceLoad>True</ForceLoad>
+      <Frameworks>Foundation</Frameworks>
+    </NativeReference>
+    <NativeReference Include="runtimes\ios\libspirv-cross-c.a">
+      <Kind>Static</Kind>
+      <SmartLink>False</SmartLink>
+      <ForceLoad>True</ForceLoad>
+    </NativeReference>
+    <NativeReference Include="runtimes\ios\libspirv-cross-core.a">
+      <Kind>Static</Kind>
+      <SmartLink>False</SmartLink>
+      <ForceLoad>True</ForceLoad>
+    </NativeReference>
+    <NativeReference Include="runtimes\ios\libspirv-cross-cpp.a">
+      <Kind>Static</Kind>
+      <SmartLink>False</SmartLink>
+      <ForceLoad>True</ForceLoad>
+    </NativeReference>
+    <NativeReference Include="runtimes\ios\libspirv-cross-glsl.a">
+      <Kind>Static</Kind>
+      <SmartLink>False</SmartLink>
+      <ForceLoad>True</ForceLoad>
+    </NativeReference>
+    <NativeReference Include="runtimes\ios\libspirv-cross-hlsl.a">
+      <Kind>Static</Kind>
+      <SmartLink>False</SmartLink>
+      <ForceLoad>True</ForceLoad>
+    </NativeReference>
+    <NativeReference Include="runtimes\ios\libspirv-cross-msl.a">
+      <Kind>Static</Kind>
+      <SmartLink>False</SmartLink>
+      <ForceLoad>True</ForceLoad>
+    </NativeReference>
+    <NativeReference Include="runtimes\ios\libspirv-cross-reflect.a">
+      <Kind>Static</Kind>
+      <SmartLink>False</SmartLink>
+      <ForceLoad>True</ForceLoad>
+    </NativeReference>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net9.0-tvos'">
+    <NativeReference Include="runtimes\tvos\libSDL3_shadercross.a">
+      <Kind>Static</Kind>
+      <SmartLink>False</SmartLink>
+      <ForceLoad>True</ForceLoad>
+      <Frameworks>Foundation</Frameworks>
+    </NativeReference>
+    <NativeReference Include="runtimes\tvos\libspirv-cross-c.a">
+      <Kind>Static</Kind>
+      <SmartLink>False</SmartLink>
+      <ForceLoad>True</ForceLoad>
+    </NativeReference>
+    <NativeReference Include="runtimes\tvos\libspirv-cross-core.a">
+      <Kind>Static</Kind>
+      <SmartLink>False</SmartLink>
+      <ForceLoad>True</ForceLoad>
+    </NativeReference>
+    <NativeReference Include="runtimes\tvos\libspirv-cross-cpp.a">
+      <Kind>Static</Kind>
+      <SmartLink>False</SmartLink>
+      <ForceLoad>True</ForceLoad>
+    </NativeReference>
+    <NativeReference Include="runtimes\tvos\libspirv-cross-glsl.a">
+      <Kind>Static</Kind>
+      <SmartLink>False</SmartLink>
+      <ForceLoad>True</ForceLoad>
+    </NativeReference>
+    <NativeReference Include="runtimes\tvos\libspirv-cross-hlsl.a">
+      <Kind>Static</Kind>
+      <SmartLink>False</SmartLink>
+      <ForceLoad>True</ForceLoad>
+    </NativeReference>
+    <NativeReference Include="runtimes\tvos\libspirv-cross-msl.a">
+      <Kind>Static</Kind>
+      <SmartLink>False</SmartLink>
+      <ForceLoad>True</ForceLoad>
+    </NativeReference>
+    <NativeReference Include="runtimes\tvos\libspirv-cross-reflect.a">
+      <Kind>Static</Kind>
+      <SmartLink>False</SmartLink>
+      <ForceLoad>True</ForceLoad>
+    </NativeReference>
+  </ItemGroup>
+</Project>
